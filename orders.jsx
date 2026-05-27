@@ -159,8 +159,37 @@ function App() {
     return lines.join("\n");
   };
 
-  const copySummary = () => {
-    navigator.clipboard.writeText(buildSummary());
+  const copySummary = async () => {
+
+  try {
+
+    await navigator.clipboard.writeText(
+      buildSummary()
+    );
+
+    alert("Order copied!");
+
+  } catch (err) {
+
+    const text = buildSummary();
+
+    const textarea =
+      document.createElement("textarea");
+
+    textarea.value = text;
+
+    document.body.appendChild(textarea);
+
+    textarea.select();
+
+    document.execCommand("copy");
+
+    document.body.removeChild(textarea);
+
+    alert("Order copied!");
+  }
+};
+  
   };
 
   const cardStyle = {
